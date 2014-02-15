@@ -4,6 +4,8 @@ use v6;
 use Test;
 use Term::ColorText;
 
+plan *;
+
 is HEADER("foo"), "\e[30;47mfoo\e[0m",                  "HEADER command works";
 is DOING("foo"),  "\e[33mfoo\e[33m \e[0m",              "DOING command works";
 is CHK("foo"),    "\e[32mfoo\e[0m",                     "CHK command works";
