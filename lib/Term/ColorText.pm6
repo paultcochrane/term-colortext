@@ -1,4 +1,4 @@
-# SynGen::PrettyText --- As it says. Temporary only though.
+# Term::ColorText --- As it says. Temporary only though.
 
 use v6;
 
