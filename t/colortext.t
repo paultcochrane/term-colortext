@@ -4,6 +4,8 @@ use v6;
 use Test;
 use Term::ColorText;
 
+plan 22;
+
 is HEADER("foo"), "\e[30;47mfoo\e[0m",                  "HEADER command works";
 is DOING("foo"),  "\e[33mfoo\e[33m \e[0m",              "DOING command works";
 is CHK("foo"),    "\e[32mfoo\e[0m",                     "CHK command works";
@@ -24,25 +26,25 @@ my $single_dbg;
         method print($b) { $!a ~= $b }
         method clear()   { $!a = "" }
     }
-    temp $*OUT = Foo.new;
+    temp $*ERR = Foo.new;
     DEBUG("foo");
-    $no_dbg = $*OUT.a;
+    $no_dbg = $*ERR.a;
 
-    $*OUT.clear;
+    $*ERR.clear;
 
     my $*YES_DEBUG = True;
     DEBUG("foo");
-    $yes_dbg = $*OUT.a;
+    $yes_dbg = $*ERR.a;
 
     # take care of these next two now, instead of later
 
-    $*OUT.clear;
+    $*ERR.clear;
     DEBUG("foo", "bar");
-    $slurp_dbg = $*OUT.a;
+    $slurp_dbg = $*ERR.a;
 
-    $*OUT.clear;
+    $*ERR.clear;
     DEBUG("foo\e[1;37;43mbar");
-    $single_dbg = $*OUT.a;
+    $single_dbg = $*ERR.a;
 
 }
 
@@ -70,5 +72,3 @@ is TODO("foo", "bar"),   "\e[37;41mXXX\e[0m\e[31;47mfoo\e[31;47mbar\e[0m", "TODO
 is $slurp_dbg, $single_dbg, "DEBUG takes a slurpy argument";
 
 is CHK, CHK("✔"), "CHK defaults to green ✔";
-
-done;
