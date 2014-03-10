@@ -22,7 +22,7 @@ sub DONE(*@things)   is export { [~] cfmt("green", "\r\e[K", @things) }
 
 sub TODO(*@things)   is export { [~] cfmt("white on_red", "XXX"), cfmt("red on_white", @things) }
 
-sub DEBUG(*@things)  is export { say [~] cfmt("bold white on_yellow", @things) if $*YES_DEBUG }
+sub DEBUG(*@things)  is export { note [~] cfmt("bold white on_yellow", @things) if $*YES_DEBUG }
 
 sub FRAC($num, $den) is export {
     if $num > $den {
